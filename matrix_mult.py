@@ -8,9 +8,9 @@ import io
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 # Параметры вычислений
-N = 4096  # Размер матрицы
-BLOCK_SIZE = 128  # Оптимальный размер блока
-NUM_RUNS = 3  # Количество запусков для усреднения
+N = 4096  
+BLOCK_SIZE = 128  
+NUM_RUNS = 3  
 
 def generate_matrix(n):
     """Генерация случайной комплексной матрицы заданного размера"""
@@ -28,20 +28,20 @@ def block_multiplication(A, B, block_size=BLOCK_SIZE):
     for bi in range(0, n, block_size):
         for bj in range(0, n, block_size):
             for bk in range(0, n, block_size):
-                # Определяем границы блоков
+                
                 i_end = min(bi + block_size, n)
                 j_end = min(bj + block_size, n)
                 k_end = min(bk + block_size, n)
-                # Умножаем блоки
+                
                 C[bi:i_end, bj:j_end] += A[bi:i_end, bk:k_end] @ B[bk:k_end, bj:j_end]
     return C
 
 def run_benchmark(name, func, A, B):
     """Запуск и замер производительности алгоритма"""
     total_time = 0.0
-    operations = 2 * N ** 3  # Общее количество операций
+    operations = 2 * N ** 3 
     
-    # Прогрев системы (первый запуск не учитываем)
+    # Прогрев системы 
     if name == "Block":
         func(A, B)
     
@@ -52,7 +52,7 @@ def run_benchmark(name, func, A, B):
         total_time += elapsed
     
     avg_time = total_time / NUM_RUNS
-    performance = (operations / avg_time) / 1e6  # MFLOP/s
+    performance = (operations / avg_time) / 1e6 
     
     print(f"{name:<10} | Среднее время: {avg_time:.2f} сек | "
           f"Производительность: {performance:,.2f} MFLOP/с")
@@ -60,7 +60,7 @@ def run_benchmark(name, func, A, B):
 
 def main():
     """Основная функция выполнения"""
-    np.random.seed(42)  # Для воспроизводимости результатов
+    np.random.seed(42)  
     
     print(f"Умножение комплексных матриц {N}×{N}")
     print(f"Теоретическая сложность: {2 * N ** 3 / 1e12:.2f} TFLOP")
