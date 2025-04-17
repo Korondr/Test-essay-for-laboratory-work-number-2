@@ -97,3 +97,5 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"Неожиданная ошибка: {str(e)}")
         sys.exit(1)
+
+print("Сулыз Константин Викторович 090304-РПИб-о24")
